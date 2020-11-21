@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SkyWay</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <!-- JavaScript and dependencies -->
+    <link rel="stylesheet" href="stylesheets/skywaystyle.css">
+
+</head>
+<body class="theme">
+    <div class="container">
+        <div class="row">
+            <div id="title" class="col-lg-4 col-xs-12 col-sm-12 text-center">
+                <span class="row">SkyWay</span>
+            </div>
+            <form id="userdata" class="col-lg-8 col-xs-12 col-sm-12 text-center">
+                <div class="col-md-6 col-xs-12 col-lg-6 child-padding" style="margin: auto;position: relative;top:30%">
+                    <div class=row>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="material-icons md-36">face</i></span>
+                            </div>
+                            <input name="useridentity" class="input form-control" onchange="OnChangeValidate()" type="text" id="useridentity" required minlength="3"
+                                   placeholder="Enter Name.."><br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="material-icons md-36">home</i></span>
+                            </div>
+                            <input name="roomidentity" class="input form-control" onchange="OnChangeValidate()" type="text" id="roomidentity" required minlength="3"
+                                   placeholder="Enter Room Name.."><br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="material-icons md-36">lock</i></span>
+                            </div>
+                            <input name="userpassword" type="text" class="input form-control" onchange="OnChangeValidate()" id="userpassword" required minlength="6"
+                                   placeholder="Enter Password(6-10).."><br />
+                        </div>
+                    </div>
+                    <div id="startjoinbuttons" class="row" style="text-align:center;padding:20px">
+                        <button type="submit" class="btn btn-primary col-xs-12 col-md-5 col-lg-5" formaction="pages/startroom.html" id="startroom">Start Room</button>
+                        <button type="submit" class="btn btn-primary col-xs-12 col-md-5 col-lg-5" formaction="pages/joinroom.html" id="joinroom">Join Room</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+
+        function OnChangeValidate() {
+            if (userpassword.value.length > 5) {
+                userpassword.style.border = "2px solid black";
+            }
+            if (useridentity.value.length > 2) {
+                useridentity.style.border = "2px solid black";
+            }
+            if (roomidentity.value.length > 2) {
+                roomidentity.style.border = "2px solid black";
+            }
+        }
+
+        function OnSubmitValidation() {
+            var isValid = true;
+            if (useridentity == null || useridentity.value == "" || useridentity.value.length < 3) {
+                useridentity.style.border = "2px solid red";
+                useridentity.placeholder = "Please Enter Name";
+                isValid = false;
+            }
+            if (roomidentity == null || roomidentity.value == "" || roomidentity.value.length < 3) {
+                roomidentity.style.border = "2px solid red";
+                roomidentity.placeholder = "Please Enter Room Name";
+                isValid = false;
+            }
+            if (userpassword == null || userpassword.value == "" || userpassword.value.length < 6) {
+                userpassword.style.border = "2px solid red";
+                userpassword.placeholder = "Please Enter Password";
+                isValid = false;
+            }
+            return isValid;
+        }
+        panel.style.display = "none";
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+</body>
+
+</html>

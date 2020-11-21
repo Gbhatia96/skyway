@@ -1,0 +1,60 @@
+<html>
+<head>
+    <title>SkyWay</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <!-- JavaScript and dependencies -->
+    <link rel="stylesheet" href="../stylesheets/skywaystyle.css">
+
+</head>
+<body>
+    <div id="callelements">
+        <div class="container">
+            <video id="remoteVideo" class="rvideo" autoplay></video>
+        </div>
+        <video id="myVideo" class="lvideo" autoplay muted></video>
+    </div>
+    <div id="panel" class="container-fluid">
+        <div id="callControls" class="btn-group">
+            <button id="btnmute" onclick="MuteMe()" class="btn">Mute</button>
+            <button id="btnexit" onclick="ExitRoom()" class="btn bg-danger">Exit</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../scripts/jquery.js"></script>
+    <script src="../scripts/socket.io.js"></script>
+    <script type="text/javascript" src="../scripts/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.3.0/adapter.js"></script>
+    <script>
+        JoinRoomEvent();
+        async function JoinRoomEvent() {
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            var useridentity = urlParams.get('useridentity');
+            var roomidentity = urlParams.get('roomidentity');
+            var userpassword = urlParams.get('userpassword');
+
+            var myStream = await GetStream('video');
+            myVideo.srcObject = myStream;
+            myVideo.style.transform = "rotateY(180deg)";
+            JoinRoom(useridentity, roomidentity, userpassword);
+            SetDisplay();
+        }
+
+
+        function JoinRoom(username, roomname, roompassword) {
+            var user = CreateUserObject(username, roomname, roompassword);
+            socket.emit('joinRoom', user);
+        }
+
+    </script>
+
+</body>
+
+</html>
