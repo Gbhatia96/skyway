@@ -45,7 +45,7 @@ function StopStream(elementId) {
 
 //#region roomCode
 var socket;
-var socketUrl = 'https://webrtc-signaling-tutorial.azurewebsites.net/';
+var socketUrl = 'http://localhost:1337/';
 socket = io(socketUrl, {
     withCredentials: false
 });
@@ -91,6 +91,7 @@ socket.on('msg', function (message) {
 //#region Webrtc
 
 var pc;
+var videoSender;
 
 
 const configuration = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
@@ -107,7 +108,7 @@ async function start() {
         remoteVideo.style.display = "block";
         myVideo.style.display = "block";
         myStream.getTracks().forEach((track) =>
-            pc.addTrack(track, myStream));
+         videoSender= pc.addTrack(track, myStream));
         console.log("stream added" + myStream);
     } catch (err) {
         console.error(err);
@@ -141,6 +142,7 @@ socket.on('iceCandidataReceive', function (data) {
     pc.addIceCandidate(new RTCIceCandidate(data.icecandidate));
     console.log("ice candidate added");
 });
+
 async function manageOffer(data) {
     var desc = data.description;
     if (desc.type === 'offer') {
@@ -149,7 +151,7 @@ async function manageOffer(data) {
         const stream = myStream;//await navigator.mediaDevices.getUserMedia(constraints);
         stream.getTracks().forEach((track) => {
             console.log("track added");
-            pc.addTrack(track, stream);
+           videoSender= pc.addTrack(track, stream);
         })
         await pc.setLocalDescription(await pc.createAnswer());
         iuser.description = pc.localDescription;
@@ -185,7 +187,7 @@ pc.oniceconnectionstatechange = ev => {
     console.log(pc.iceConnectionState);
     if (pc.iceConnectionState == "disconnected") {
         Dispose();
-        window.location.href = "/skyway";
+        window.location.href = "/";
     }
     if (pc.iceConnectionState == "connected") {
         startTime = new Date().getTime();
@@ -217,20 +219,20 @@ function ExitRoom() {
     panel.style.display = "none";
     remoteVideo.style.display = "none";
     Dispose();
-    window.location.replace("/skyway");
+    window.location.replace("/");
 }
 
 socket.on('peerDisconnected', function (message) {
-    window.location.replace("/skyway");
+    window.location.replace("/");
 });
 
 function MuteMe() {
-    if (btnmute.innerHTML == 'Mute') {
+    if (btnmute.innerHTML == '<i class="fa fa-microphone"></i>') {
         myStream.getAudioTracks()[0].enabled = false;
-        btnmute.innerHTML="UnMute"
+        btnmute.innerHTML = '<i class="fa fa-microphone-slash"></i>'
     }
     else {
         myStream.getAudioTracks()[0].enabled = true;
-        btnmute.innerHTML = "Mute"
+        btnmute.innerHTML = '<i class="fa fa-microphone"></i>'
     }
 }
