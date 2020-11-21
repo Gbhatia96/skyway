@@ -187,7 +187,7 @@ pc.oniceconnectionstatechange = ev => {
     console.log(pc.iceConnectionState);
     if (pc.iceConnectionState == "disconnected") {
         Dispose();
-        window.location.href = "/";
+        window.location.href = "/skyway";
     }
     if (pc.iceConnectionState == "connected") {
         startTime = new Date().getTime();
@@ -219,11 +219,11 @@ function ExitRoom() {
     panel.style.display = "none";
     remoteVideo.style.display = "none";
     Dispose();
-    window.location.replace("/");
+    window.location.replace("/skyway");
 }
 
 socket.on('peerDisconnected', function (message) {
-    window.location.replace("/");
+    window.location.replace("/skyway");
 });
 
 function MuteMe() {
