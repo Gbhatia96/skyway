@@ -45,7 +45,7 @@ function StopStream(elementId) {
 
 //#region roomCode
 var socket;
-var socketUrl = 'http://localhost:1337/';
+var socketUrl = 'https://webrtc-signaling-tutorial.azurewebsites.net/';
 socket = io(socketUrl, {
     withCredentials: false
 });
