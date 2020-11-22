@@ -59,7 +59,7 @@
     height: 100%;
     width: 100%;
     display: none;
-    transform: rotateY(180deg);
+    transform: rotateY(1deg);
 }
 
 #panel {
