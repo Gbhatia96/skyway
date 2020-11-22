@@ -48,7 +48,6 @@
             var myStream = await GetStream('video');
             myVideo.srcObject = myStream;
             myVideo.style.transform = "rotateY(180deg)";
-            remoteVideo.style.transform = "rotateY(180deg)";
             JoinRoom(useridentity, roomidentity, userpassword);
             SetDisplay();
         }
